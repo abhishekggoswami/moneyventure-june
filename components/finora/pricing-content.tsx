@@ -543,8 +543,7 @@ function PeriodCard({
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(28px)",
           transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s, box-shadow 300ms cubic-bezier(0.22,1,0.36,1), transform 300ms cubic-bezier(0.22,1,0.36,1), border-color 300ms ease`,
-          marginTop: isHighlighted ? "0" : "10px",
-          marginBottom: isHighlighted ? "0" : "10px",
+          alignSelf: "stretch",
           cursor: "pointer",
           position: "relative",
         }}
@@ -858,7 +857,7 @@ function PricingPageServiceBlock({
                 display: "flex", 
                 gap: "18px", 
                 flexWrap: "wrap", 
-                alignItems: "flex-start", 
+                alignItems: "stretch",
                 justifyContent: "center",
                 perspective: "1200px"
               }}>
