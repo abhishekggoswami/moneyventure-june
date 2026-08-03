@@ -44,8 +44,13 @@ interface PricingTier {
   quarterly: number
   yearly: number
   features: string[]
+  periodFeatures?: Partial<Record<Period, string[]>>
   highlighted: boolean
   badge?: string
+}
+
+function getTierFeatures(tier: PricingTier, period: Period) {
+  return tier.periodFeatures?.[period] ?? tier.features
 }
 
 interface ServiceData {
@@ -67,33 +72,84 @@ const services: ServiceData[] = [
     tiers: [
       {
         name: "Intraday Cash Plus",
-        tagline: "Entry level access",
+        tagline: "Structured intraday trade guidance for traders who want clear setups and regular market updates.",
         monthly: 12000,
         quarterly: 30000,
         yearly: 50000,
         features: [
-          "Up to 3 trade ideas / week",
-          "Entry, SL & Target levels",
-          "Telegram delivery",
-          "Basic market commentary",
+          "Up to 3 researched trade setups per week",
+          "Clear entry zone, stop-loss and target levels",
+          "Risk note with every trade setup",
+          "Telegram trade alerts and exit updates",
+          "Weekly market outlook and key levels",
           "Email support",
         ],
+        periodFeatures: {
+          monthly: [
+            "Up to 3 researched trade setups per week",
+            "Clear entry zone, stop-loss and target levels",
+            "Risk note with every trade setup",
+            "Telegram trade alerts and exit updates",
+            "Weekly market outlook and key levels",
+            "Email support",
+          ],
+          quarterly: [
+            "Everything included in the Monthly plan",
+            "Personal onboarding call",
+            "Trading journal template",
+            "Monthly performance review",
+            "One additional strategy review session",
+          ],
+          yearly: [
+            "Everything included in the Quarterly plan",
+            "Personal risk-management framework",
+            "Two additional one-to-one review calls",
+            "Priority email support",
+            "Subscription price locked for six months",
+          ],
+        },
         highlighted: false,
       },
       {
         name: "Intraday Cash Pro",
-        tagline: "Most popular",
+        tagline: "Advanced intraday guidance for active traders who need faster updates, risk support and personalised reviews.",
         monthly: 20000,
         quarterly: 45000,
         yearly: 65000,
         features: [
-          "Up to 6 trade ideas / week",
-          "Entry, SL & Target levels",
-          "Priority Telegram + WhatsApp",
-          "Daily market brief",
-          "Live session monitoring",
-          "Dedicated support",
+          "Up to 6 researched trade setups per week",
+          "Entry, stop-loss, targets and position-sizing guidance",
+          "Priority Telegram and WhatsApp alerts",
+          "Active-trade modification and exit updates",
+          "Pre-market trading plan and important levels",
+          "Weekly trade performance review",
+          "Priority support during market hours",
         ],
+        periodFeatures: {
+          monthly: [
+            "Up to 6 researched trade setups per week",
+            "Entry, stop-loss, targets and position-sizing guidance",
+            "Priority Telegram and WhatsApp alerts",
+            "Active-trade modification and exit updates",
+            "Pre-market trading plan and important levels",
+            "Weekly trade performance review",
+            "Priority support during market hours",
+          ],
+          quarterly: [
+            "Everything included in the Monthly plan",
+            "Personal onboarding and strategy call",
+            "Personalised trading journal template",
+            "Monthly one-to-one strategy review",
+            "Risk-management and trading-discipline guidance",
+          ],
+          yearly: [
+            "Everything included in the Quarterly plan",
+            "Personal trading and risk-management framework",
+            "Two additional portfolio or strategy review calls",
+            "Priority support throughout the subscription",
+            "Subscription price locked for six months",
+          ],
+        },
         highlighted: true,
         badge: "Popular",
       },
@@ -108,18 +164,44 @@ const services: ServiceData[] = [
     tiers: [
       {
         name: "Futures",
-        tagline: "Quarterly & Half-Yearly plans",
+        tagline: "Structured index and stock futures guidance for active traders who want researched setups, risk controls and timely trade updates.",
         monthly: 0,
         quarterly: 50000,
         yearly: 75000,
         features: [
-          "Index & stock futures setups",
-          "Entry, SL & Target levels",
-          "Strike selection guidance",
-          "Priority Telegram + WhatsApp",
-          "Live adjustment alerts",
-          "Dedicated support",
+          "Researched index and stock futures trade setups",
+          "Clear entry zone, stop-loss and target levels",
+          "Contract and expiry selection guidance",
+          "Position-sizing and risk-management guidance",
+          "Priority Telegram and WhatsApp alerts",
+          "Active-trade modification and exit updates",
+          "Weekly futures market outlook",
+          "One personal strategy review every month",
+          "Priority support during market hours",
         ],
+        periodFeatures: {
+          quarterly: [
+            "Researched index and stock futures trade setups",
+            "Clear entry zone, stop-loss and target levels",
+            "Contract and expiry selection guidance",
+            "Position-sizing and risk-management guidance",
+            "Priority Telegram and WhatsApp alerts",
+            "Active-trade modification and exit updates",
+            "Weekly futures market outlook",
+            "One personal strategy review every month",
+            "Priority support during market hours",
+          ],
+          yearly: [
+            "Everything included in the Quarterly plan",
+            "Personal onboarding and futures strategy call",
+            "Custom risk-management framework",
+            "Monthly trade-performance review",
+            "Futures trading journal template",
+            "Two additional one-to-one strategy sessions",
+            "Priority support throughout the subscription",
+            "Subscription price locked for six months",
+          ],
+        },
         highlighted: true,
         badge: "Best Value",
       },
@@ -134,33 +216,61 @@ const services: ServiceData[] = [
     tiers: [
       {
         name: "Stock Option Plus",
-        tagline: "Stock options focus",
+        tagline: "Focused stock-options guidance for traders who want researched setups, clear risk levels and regular trade updates.",
         monthly: 17000,
         quarterly: 35000,
         yearly: 65000,
         features: [
-          "5–8 options setups / month",
-          "Strike selection guidance",
-          "Stock options focus",
-          "Telegram delivery",
+          "5–8 researched stock-options setups per month",
+          "Clear entry zone, stop-loss and target levels",
+          "Strike price and expiry selection guidance",
+          "Focused coverage of selected stock options",
+          "Risk note with every trade setup",
+          "Telegram entry, modification and exit alerts",
+          "Weekly stock-options watchlist",
           "Email support",
         ],
+        periodFeatures: {
+          monthly: [
+            "5–8 researched stock-options setups per month", "Clear entry zone, stop-loss and target levels", "Strike price and expiry selection guidance", "Focused coverage of selected stock options", "Risk note with every trade setup", "Telegram entry, modification and exit alerts", "Weekly stock-options watchlist", "Email support",
+          ],
+          quarterly: [
+            "Everything included in the Monthly plan", "Personal onboarding call", "Options trading journal template", "Monthly trade-performance review", "One additional strategy-review session", "Guidance on avoiding overtrading and managing risk",
+          ],
+          yearly: [
+            "Everything included in the Quarterly plan", "Personal stock-options risk framework", "Two additional one-to-one review calls", "Quarterly strategy and performance assessment", "Priority email support", "Subscription price locked for six months",
+          ],
+        },
         highlighted: false,
       },
       {
         name: "Index Option Pro",
-        tagline: "Most popular",
+        tagline: "Advanced index and stock-options guidance for active traders who require more setups, faster alerts and deeper trade rationale.",
         monthly: 20000,
         quarterly: 45000,
         yearly: 75000,
         features: [
-          "12–18 options setups / month",
-          "Index + stock options",
-          "Greeks-aware trade rationale",
-          "Priority Telegram + WhatsApp",
-          "Live adjustment alerts",
-          "Dedicated support",
+          "12–18 researched options setups per month",
+          "Coverage of index and selected stock options",
+          "Entry, stop-loss, targets and position-sizing guidance",
+          "Strike price and expiry selection guidance",
+          "Trade rationale based on volatility and option Greeks",
+          "Priority Telegram and WhatsApp alerts",
+          "Active-trade modification and exit updates",
+          "Weekly options market outlook",
+          "Priority support during market hours",
         ],
+        periodFeatures: {
+          monthly: [
+            "12–18 researched options setups per month", "Coverage of index and selected stock options", "Entry, stop-loss, targets and position-sizing guidance", "Strike price and expiry selection guidance", "Trade rationale based on volatility and option Greeks", "Priority Telegram and WhatsApp alerts", "Active-trade modification and exit updates", "Weekly options market outlook", "Priority support during market hours",
+          ],
+          quarterly: [
+            "Everything included in the Monthly plan", "Personal onboarding and options strategy call", "Monthly one-to-one trade review", "Options trading journal and performance tracker", "Risk-management and trading-discipline guidance", "Strategy guidance based on volatility and market conditions",
+          ],
+          yearly: [
+            "Everything included in the Quarterly plan", "Personal options trading and risk-management framework", "Two additional one-to-one strategy sessions", "Quarterly performance and strategy assessment", "Priority support throughout the subscription", "Subscription price locked for six months",
+          ],
+        },
         highlighted: true,
         badge: "Popular",
       },
@@ -269,6 +379,7 @@ function TierCard({
 
   const periodLabel =
     period === "monthly" ? "Monthly" : period === "quarterly" ? "Quarterly" : "Half-Yearly"
+  const features = getTierFeatures(tier, period)
 
   const isPopular = tier.highlighted
 
@@ -339,7 +450,7 @@ function TierCard({
 
         {/* Features */}
         <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: "12px", flex: 1, position: "relative" }}>
-          {tier.features.map((f) => (
+          {features.map((f) => (
             <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <span style={{ display: "inline-block", width: "6px", height: "6px", borderRadius: "50%", background: "#1B4332", flexShrink: 0, marginTop: "6px" }} />
               <span style={{ color: "#374151", fontSize: "14px", lineHeight: 1.55 }}>{f}</span>
@@ -409,6 +520,7 @@ function PeriodCard({
     : tier.yearly
   const isHighlighted = period === "quarterly"
   const delay = groupIndex * 0.05 + cardIndex * 0.1
+  const features = getTierFeatures(tier, period)
 
   return (
       <div
@@ -532,7 +644,7 @@ function PeriodCard({
 
         {/* Features */}
         <ul style={{ listStyle: "none", padding: 0, margin: "0 0 22px", display: "flex", flexDirection: "column", gap: "10px", flex: 1 }}>
-          {tier.features.map((f) => (
+          {features.map((f) => (
             <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "9px" }}>
               <span style={{ 
                 display: "inline-block", 

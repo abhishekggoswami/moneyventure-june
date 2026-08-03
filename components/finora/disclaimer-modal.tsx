@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { AlertTriangle, ChevronDown, ShieldCheck } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 
 const DISCLAIMER_POINTS = [
@@ -13,28 +16,75 @@ const DISCLAIMER_POINTS = [
 ]
 
 export function DisclaimerModal() {
-  const [open, setOpen] = useState(false)
+  const [disclaimerOpen, setDisclaimerOpen] = useState(false)
+  const [paymentDetailsOpen, setPaymentDetailsOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
-    // Show once per session
-    const seen = sessionStorage.getItem("mv_disclaimer_seen")
-    if (!seen) {
-      setOpen(true)
+    // Show the original full disclaimer once per session.
+    if (!sessionStorage.getItem("mv_disclaimer_seen")) {
+      setDisclaimerOpen(true)
     }
   }, [])
 
-  function dismiss() {
+  function acceptDisclaimer() {
     sessionStorage.setItem("mv_disclaimer_seen", "1")
-    setOpen(false)
+    setDisclaimerOpen(false)
   }
 
-  if (!open) return null
-
   return (
-    <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-      style={{ background: "rgba(10, 26, 18, 0.75)", backdropFilter: "blur(4px)" }}
-    >
+    <>
+      {pathname === "/" && (
+        <aside className="fixed right-3 top-32 z-30 w-[280px] max-w-[calc(100%-1.5rem)] sm:right-6 sm:w-[calc(100%-3rem)] sm:max-w-sm" aria-label="Payment safety alert">
+          <div className="overflow-hidden rounded-2xl bg-white shadow-xl" style={{ border: "1px solid rgba(197,216,45,0.8)" }}>
+            <button
+              type="button"
+              onClick={() => setPaymentDetailsOpen((open) => !open)}
+              aria-expanded={paymentDetailsOpen}
+              aria-controls="payment-alert-details"
+              className="flex w-full items-center justify-between gap-2.5 bg-[#1B4332] px-3 py-2.5 text-left sm:gap-3 sm:px-4 sm:py-3.5"
+            >
+              <span className="flex min-w-0 items-center gap-2 sm:gap-2.5">
+                <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#C5D82D] sm:h-8 sm:w-8">
+                  <AlertTriangle className="h-3.5 w-3.5 text-[#1B4332] sm:h-4 sm:w-4" aria-hidden="true" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#C5D82D] sm:text-[10px] sm:tracking-[0.16em]">Important</span>
+                  <span className="block text-[13px] font-bold leading-tight text-white sm:text-sm">Payment safety notice</span>
+                </span>
+              </span>
+              <ChevronDown
+                className="h-4 w-4 flex-shrink-0 text-[#C5D82D] transition-transform duration-200 sm:h-5 sm:w-5"
+                style={{ transform: paymentDetailsOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                aria-hidden="true"
+              />
+            </button>
+
+            {paymentDetailsOpen && (
+              <div id="payment-alert-details" className="px-3 py-3 text-xs leading-relaxed text-[#1B4332] sm:px-4 sm:py-4 sm:text-sm">
+                <div className="flex gap-2">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#1B4332] sm:h-5 sm:w-5" aria-hidden="true" />
+                  <p>
+                    All payments for Money Ventures services must be made only on the official Money Ventures Payments page. Do not use personal links, third-party accounts, or any other payment page.
+                  </p>
+                </div>
+                <Link href="/payment" className="mt-3 inline-flex rounded-lg bg-[#C5D82D] px-3 py-1.5 text-[11px] font-bold text-[#1B4332] transition-colors hover:bg-[#D6E94A] sm:mt-4 sm:px-3.5 sm:py-2 sm:text-xs">
+                  Go to Payments Page
+                </Link>
+              </div>
+            )}
+          </div>
+        </aside>
+      )}
+
+      {disclaimerOpen && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+          style={{ background: "rgba(10, 26, 18, 0.75)", backdropFilter: "blur(4px)" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Important disclaimer"
+        >
       {/* Card */}
       <div
         className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl"
@@ -116,7 +166,7 @@ export function DisclaimerModal() {
         {/* Footer — only "Yes, I Agree" to prevent bypassing */}
         <div className="bg-white border-t border-gray-100 px-8 py-5 flex items-center justify-center flex-shrink-0">
           <button
-            onClick={dismiss}
+            onClick={acceptDisclaimer}
             className="px-10 py-3 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
             style={{ background: "#1B4332" }}
           >
@@ -124,6 +174,8 @@ export function DisclaimerModal() {
           </button>
         </div>
       </div>
-    </div>
+        </div>
+      )}
+    </>
   )
 }

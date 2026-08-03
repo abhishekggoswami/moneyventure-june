@@ -184,6 +184,8 @@ export function Footer() {
             { label: "Type",            value: "Individual" },
             { label: "Principle Officer", value: "Rohit Kumar" },
             { label: "Compliance Officer", value: "Rohit Kumar" },
+            { label: "Contact Person", value: "Rohit Kumar" },
+            { label: "Validity", value: "Apr 13, 2026 – Perpetual" },
           ].map(({ label, value }) => (
             <div key={label}>
               <span className="text-[#C5D82D] text-[9px] font-bold uppercase tracking-widest">{label}</span>
@@ -192,7 +194,15 @@ export function Footer() {
           ))}
         </MobileAccordion>
 
-        <MobileAccordion title="Address">
+        <MobileAccordion title="Addresses">
+          <div>
+            <p className="text-[#C5D82D] text-[9px] font-bold uppercase tracking-widest mb-0.5">Registered Address</p>
+            <p className="text-white/60 text-xs leading-relaxed">23 Sai City Mangliya, Dhabli Mangliya, Indore, Madhya Pradesh 453771</p>
+          </div>
+          <div>
+            <p className="text-[#C5D82D] text-[9px] font-bold uppercase tracking-widest mb-0.5">Correspondence Address</p>
+            <p className="text-white/60 text-xs leading-relaxed">House No. 03, Laxman Nagar, AB Road, Dewas, Madhya Pradesh 455001</p>
+          </div>
           <div>
             <p className="text-[#C5D82D] text-[9px] font-bold uppercase tracking-widest mb-0.5">SEBI Local Office</p>
             <p className="text-white/60 text-xs leading-relaxed">1st Floor, Satguru Parinay, 104-105, AB Rd, Opposite C-21 Mall, Scheme No 54, Indore, MP 452010</p>
@@ -274,12 +284,24 @@ export function Footer() {
             <FH>Office &amp; Address</FH>
             <div className="space-y-4">
               <div>
+                <p className="text-[#C5D82D] text-xs font-semibold mb-1">Registered Address</p>
+                <p className="text-white/75 text-sm leading-relaxed">23 Sai City Mangliya, Dhabli Mangliya, Indore, Madhya Pradesh 453771</p>
+              </div>
+              <div>
+                <p className="text-[#C5D82D] text-xs font-semibold mb-1">Correspondence Address</p>
+                <p className="text-white/75 text-sm leading-relaxed">House No. 03, Laxman Nagar, AB Road, Dewas, Madhya Pradesh 455001</p>
+              </div>
+              <div>
                 <p className="text-[#C5D82D] text-xs font-semibold mb-1">SEBI Local Office</p>
                 <p className="text-white/75 text-sm leading-relaxed">1st Floor, Satguru Parinay, 104-105, AB Rd, Opposite C-21 Mall, Scheme No 54, Indore, MP 452010</p>
               </div>
               <div>
-                <p className="text-[#C5D82D] text-xs font-semibold mb-1">Principle Officer</p>
+                <p className="text-[#C5D82D] text-xs font-semibold mb-1">Contact Person</p>
                 <p className="text-white text-sm font-medium">Rohit Kumar</p>
+              </div>
+              <div>
+                <p className="text-[#C5D82D] text-xs font-semibold mb-1">Validity</p>
+                <p className="text-white/75 text-sm leading-relaxed">Apr 13, 2026 – Perpetual</p>
               </div>
             </div>
           </div>
