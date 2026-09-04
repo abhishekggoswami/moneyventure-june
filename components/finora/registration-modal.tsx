@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { X, TrendingUp, Phone, Target, Clock } from 'lucide-react'
+import { X, TrendingUp, Target, Clock } from 'lucide-react'
 
 export function RegistrationModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -205,27 +205,6 @@ export function RegistrationModal() {
                 <div style={{ flex: 1 }}>
                   <div style={{ color: '#1B4332', fontSize: '12px', fontWeight: 600, lineHeight: 1.3 }}>Demo Trading Access</div>
                   <div style={{ color: '#6b7280', fontSize: '11px', marginTop: '1px' }}>Live simulation</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                <div
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #1B4332, #2d5a48)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
-                  <Phone size={16} color="#C5D82D" strokeWidth={2.5} />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ color: '#1B4332', fontSize: '12px', fontWeight: 600, lineHeight: 1.3 }}>Expert 1-on-1 Call</div>
-                  <div style={{ color: '#6b7280', fontSize: '11px', marginTop: '1px' }}>Personalized guidance</div>
                 </div>
               </div>
 

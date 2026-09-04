@@ -93,7 +93,6 @@ const services: ServiceData[] = [
           yearly: [
             "Everything included in the Quarterly plan",
             "Personal risk-management framework",
-            "Two additional one-to-one review calls",
             "Priority email support",
             "Subscription price locked for six months",
           ],
@@ -129,13 +128,11 @@ const services: ServiceData[] = [
             "Everything included in the Monthly plan",
             "Personal onboarding and strategy call",
             "Personalised trading journal template",
-            "Monthly one-to-one strategy review",
             "Risk-management and trading-discipline guidance",
           ],
           yearly: [
             "Everything included in the Quarterly plan",
             "Personal trading and risk-management framework",
-            "Two additional portfolio or strategy review calls",
             "Priority support throughout the subscription",
             "Subscription price locked for six months",
           ],
@@ -199,7 +196,6 @@ const services: ServiceData[] = [
             "Custom risk-management framework",
             "Monthly trade-performance review",
             "Futures trading journal template",
-            "Two additional one-to-one strategy sessions",
             "Priority support throughout the subscription",
             "Subscription price locked for six months",
           ],
@@ -252,7 +248,7 @@ const services: ServiceData[] = [
             "Everything included in the Monthly plan", "Personal onboarding call", "Options trading journal template", "Monthly trade-performance review", "One additional strategy-review session", "Guidance on avoiding overtrading and managing risk",
           ],
           yearly: [
-            "Everything included in the Quarterly plan", "Personal stock-options risk framework", "Two additional one-to-one review calls", "Quarterly strategy and performance assessment", "Priority email support", "Subscription price locked for six months",
+            "Everything included in the Quarterly plan", "Personal stock-options risk framework", "Quarterly strategy and performance assessment", "Priority email support", "Subscription price locked for six months",
           ],
         },
         highlighted: false,
@@ -279,10 +275,10 @@ const services: ServiceData[] = [
             "12–18 researched options setups per month", "Coverage of index and selected stock options", "Entry, stop-loss, targets and position-sizing guidance", "Strike price and expiry selection guidance", "Trade rationale based on volatility and option Greeks", "Priority Telegram and WhatsApp alerts", "Active-trade modification and exit updates", "Weekly options market outlook", "Priority support during market hours",
           ],
           quarterly: [
-            "Everything included in the Monthly plan", "Personal onboarding and options strategy call", "Monthly one-to-one trade review", "Options trading journal and performance tracker", "Risk-management and trading-discipline guidance", "Strategy guidance based on volatility and market conditions",
+            "Everything included in the Monthly plan", "Personal onboarding and options strategy call", "Options trading journal and performance tracker", "Risk-management and trading-discipline guidance", "Strategy guidance based on volatility and market conditions",
           ],
           yearly: [
-            "Everything included in the Quarterly plan", "Personal options trading and risk-management framework", "Two additional one-to-one strategy sessions", "Quarterly performance and strategy assessment", "Priority support throughout the subscription", "Subscription price locked for six months",
+            "Everything included in the Quarterly plan", "Personal options trading and risk-management framework", "Quarterly performance and strategy assessment", "Priority support throughout the subscription", "Subscription price locked for six months",
           ],
         },
         highlighted: true,
