@@ -88,38 +88,37 @@ export function ContactContent() {
           justifyContent: "center",
           minHeight: "480px",
           padding: "90px 24px 110px",
-          background: "radial-gradient(ellipse 120% 100% at 60% 0%, #2d6a4f 0%, #1B4332 45%, #142e22 100%)",
         }}
       >
-        <style>{`
-          @keyframes floatA { 0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,-40px) scale(1.08);} }
-          @keyframes floatB { 0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-20px,30px) scale(0.94);} }
-          @keyframes floatC { 0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(15px,20px) scale(1.05);} }
-          @keyframes floatD { 0%,100%{transform:translate(0,0);}33%{transform:translate(-18px,-22px);}66%{transform:translate(22px,10px);} }
-          @keyframes waveRoll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
-          @keyframes charReveal { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
-          @keyframes underlineGrow { from{width:0;} to{width:100%;} }
-        `}</style>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            pointerEvents: "none",
+          }}
+        >
+          <source src="/videos/contact-hero-background.mp4" type="video/mp4" />
+        </video>
 
-        {/* Floating lime orbs */}
-        <div style={{ position:"absolute", top:"8%",  left:"6%",  width:"260px", height:"260px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.13) 0%, transparent 70%)", animation:"floatA 9s ease-in-out infinite", pointerEvents:"none" }} />
-        <div style={{ position:"absolute", top:"20%", right:"4%", width:"180px", height:"180px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.09) 0%, transparent 70%)", animation:"floatB 12s ease-in-out infinite", pointerEvents:"none" }} />
-        <div style={{ position:"absolute", bottom:"18%", left:"15%", width:"140px", height:"140px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.10) 0%, transparent 70%)", animation:"floatC 7s ease-in-out infinite", pointerEvents:"none" }} />
-        <div style={{ position:"absolute", bottom:"10%", right:"12%", width:"200px", height:"200px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.07) 0%, transparent 70%)", animation:"floatD 14s ease-in-out infinite", pointerEvents:"none" }} />
-
-        {/* Grain texture */}
-        <svg width="0" height="0" style={{ position:"absolute" }}>
-          <defs>
-            <filter id="contact-grain" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
-              <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" result="noise" />
-              <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
-              <feBlend in="SourceGraphic" in2="grayNoise" mode="overlay" result="blended" />
-              <feComponentTransfer in="blended"><feFuncA type="linear" slope="0.18" /></feComponentTransfer>
-            </filter>
-          </defs>
-        </svg>
-        <div style={{ position:"absolute", inset:0, pointerEvents:"none", filter:"url(#contact-grain)", background:"#1B4332", opacity:0.55 }} />
-
+        {/* Readability overlay */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(135deg, rgba(5, 20, 13, 0.78) 0%, rgba(10, 32, 21, 0.58) 48%, rgba(5, 20, 13, 0.72) 100%)",
+            pointerEvents: "none",
+          }}
+        />
         {/* Content */}
         <div style={{ position:"relative", textAlign:"center", maxWidth:"680px", zIndex:1 }}>
 
@@ -239,17 +238,6 @@ export function ContactContent() {
           </div>
         </div>
 
-        {/* Rolling wave */}
-        <div style={{ position:"absolute", bottom:-1, left:0, right:0, overflow:"hidden", lineHeight:0, pointerEvents:"none", height:"80px" }}>
-          <div style={{ display:"flex", width:"200%", height:"80px", animation:"waveRoll 7s linear infinite" }}>
-            {[0, 1].map((i) => (
-              <svg key={i} viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-                style={{ width:"50%", height:"80px", flexShrink:0, display:"block" }}>
-                <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1350,10 1440,40 L1440,80 L0,80 Z" fill="#F7F9F5" />
-              </svg>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ── Main content ─────────────────────────────────────────────────── */}

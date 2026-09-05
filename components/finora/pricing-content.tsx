@@ -1071,7 +1071,6 @@ function PricingHero() {
     <section
       style={{
         minHeight: "65vh",
-        background: "linear-gradient(160deg, #122b20 0%, #1B4332 50%, #1a3d2d 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -1099,42 +1098,35 @@ function PricingHero() {
         }
       `}</style>
 
-      {/* Floating lime orbs */}
-      <div style={{ position:"absolute", top:"8%",  left:"6%",  width:"260px", height:"260px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.13) 0%, transparent 70%)", animation:"floatA 9s ease-in-out infinite", pointerEvents:"none" }} />
-      <div style={{ position:"absolute", top:"20%", right:"4%", width:"180px", height:"180px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.09) 0%, transparent 70%)", animation:"floatB 12s ease-in-out infinite", pointerEvents:"none" }} />
-      <div style={{ position:"absolute", bottom:"18%", left:"15%", width:"140px", height:"140px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.10) 0%, transparent 70%)", animation:"floatC 7s ease-in-out infinite", pointerEvents:"none" }} />
-      <div style={{ position:"absolute", bottom:"10%", right:"12%", width:"200px", height:"200px", borderRadius:"50%", background:"radial-gradient(circle, rgba(197,216,45,0.07) 0%, transparent 70%)", animation:"floatD 14s ease-in-out infinite", pointerEvents:"none" }} />
-
-      {/* Film-grain / noise texture via SVG feTurbulence rendered into a canvas data-URI */}
-      <svg width="0" height="0" style={{ position: "absolute" }}>
-        <defs>
-          <filter id="grain-filter" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.72"
-              numOctaves="4"
-              stitchTiles="stitch"
-              result="noise"
-            />
-            <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
-            <feBlend in="SourceGraphic" in2="grayNoise" mode="overlay" result="blended" />
-            <feComponentTransfer in="blended">
-              <feFuncA type="linear" slope="0.18" />
-            </feComponentTransfer>
-          </filter>
-        </defs>
-      </svg>
-      <div
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
           pointerEvents: "none",
-          filter: "url(#grain-filter)",
-          background: "#1B4332",
-          opacity: 0.55,
+        }}
+      >
+        <source src="/videos/pricing-hero-background.mp4" type="video/mp4" />
+      </video>
+
+      {/* Readability overlay */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(135deg, rgba(5, 20, 13, 0.78) 0%, rgba(10, 32, 21, 0.58) 48%, rgba(5, 20, 13, 0.72) 100%)",
+          pointerEvents: "none",
         }}
       />
-
       {/* Content */}
       <div style={{ position: "relative", textAlign: "center", maxWidth: "720px", zIndex: 1 }}>
 
@@ -1255,20 +1247,6 @@ function PricingHero() {
         </div>
       </div>
 
-      {/* Animated wave bottom border */}
-      <style>{`
-        @keyframes waveRoll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
-      `}</style>
-      <div style={{ position:"absolute", bottom:-1, left:0, right:0, overflow:"hidden", lineHeight:0, pointerEvents:"none", height:"80px" }}>
-        <div style={{ display:"flex", width:"200%", height:"80px", animation:"waveRoll 7s linear infinite" }}>
-          {[0, 1].map((i) => (
-            <svg key={i} viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-              style={{ width:"50%", height:"80px", flexShrink:0, display:"block" }}>
-              <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1350,10 1440,40 L1440,80 L0,80 Z" fill="#F7F9F5" />
-            </svg>
-          ))}
-        </div>
-      </div>
     </section>
   )
 }
@@ -1327,8 +1305,8 @@ export function PricingContent() {
         style={{
           position: "relative",
           background: "linear-gradient(180deg, #F7F9F5 0%, #F7F9F5 8%, #f3f7ef 22%, #eef4e8 55%, #e9f0e4 100%)",
-          padding: "220px 0 100px",
-          marginTop: "-80px",
+          padding: "100px 0",
+          marginTop: "0",
           zIndex: 1,
           overflow: "hidden",
         }}

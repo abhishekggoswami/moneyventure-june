@@ -2,8 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Send, User, Phone, Mail, Clock, ChevronDown } from "lucide-react"
-import { useState } from "react"
+import { Send, User, Phone, Mail, MapPin, ChevronDown, X } from "lucide-react"
+import { useEffect, useState } from "react"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -18,6 +18,35 @@ const importantLinks = [
   { label: "Investor Charter",        href: "https://docs.google.com/document/d/1oUlvGD9IzJgN0jgXxF2kW6zs35z6dH57/edit?usp=drive_link&ouid=107049434454860825227&rtpof=true&sd=true" },
   { label: "PMLA Policy",             href: "https://docs.google.com/document/d/11W8T9xM-7MK98CgHyF8-3GjSZ7Sd5iaa/edit?usp=drive_link&ouid=107049434454860825227&rtpof=true&sd=true" },
 ]
+
+type PolicyType = "terms" | "privacy"
+
+const policies: Record<PolicyType, { title: string; updated: string; sections: { heading: string; body: string }[] }> = {
+  terms: {
+    title: "Terms & Conditions",
+    updated: "Last updated: September 2026",
+    sections: [
+      { heading: "Acceptance", body: "By accessing this website or using our services, you agree to these Terms & Conditions and all applicable laws and regulations." },
+      { heading: "Research services", body: "Money Venture Research provides research and educational information. Nothing on this website is a guarantee of returns, a promise of performance, or a substitute for your own independent judgement and risk assessment." },
+      { heading: "Investor responsibility", body: "Investments in securities are subject to market risks. You are responsible for evaluating the suitability of any information or service for your circumstances before making an investment decision." },
+      { heading: "Subscriptions and payments", body: "Prices, service scope and access periods are displayed before purchase. Payments, cancellation and refund requests are handled in accordance with the offer shared at purchase and applicable law." },
+      { heading: "Permitted use", body: "Website content, reports and communications are for your personal use only. You may not reproduce, distribute, resell or misuse them without our written permission." },
+      { heading: "Contact", body: "For questions about these terms or our services, email info@moneyventureresearch.com or call 09098668268." },
+    ],
+  },
+  privacy: {
+    title: "Privacy Policy",
+    updated: "Last updated: September 2026",
+    sections: [
+      { heading: "Information we collect", body: "We may collect the details you provide through forms, enquiries, subscriptions and payments, such as your name, phone number, email address and transaction-related information." },
+      { heading: "How we use information", body: "We use this information to respond to enquiries, provide services, process payments, send requested communications, improve the website and meet legal or regulatory obligations." },
+      { heading: "Sharing and security", body: "We do not sell personal information. Information may be shared with service providers or authorities only where required to operate our services, comply with law or protect our rights. We use reasonable safeguards to protect data, but no online system is completely secure." },
+      { heading: "Cookies and analytics", body: "The website may use essential cookies and aggregated usage data to help it function and improve. You can manage cookies through your browser settings." },
+      { heading: "Your choices", body: "You may request access, correction or deletion of the personal information we hold, subject to legal and regulatory requirements. You can also opt out of non-essential marketing messages at any time." },
+      { heading: "Contact", body: "For privacy-related requests, email info@moneyventureresearch.com with the subject line “Privacy Request”." },
+    ],
+  },
+}
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -68,6 +97,82 @@ function MobileAccordion({ title, children }: { title: string; children: React.R
   )
 }
 
+function PolicyModal({ policy, onClose }: { policy: PolicyType; onClose: () => void }) {
+  const content = policies[policy]
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose()
+    }
+
+    document.addEventListener("keydown", handleEscape)
+    const originalOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape)
+      document.body.style.overflow = originalOverflow
+    }
+  }, [onClose])
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 top-[94px] z-30 flex items-end justify-center p-3 sm:items-center sm:p-5">
+      <button
+        type="button"
+        aria-label="Close policy"
+        onClick={onClose}
+        className="absolute inset-0 cursor-default bg-[#0a1a12]/75 backdrop-blur-sm"
+      />
+      <section
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={policy + "-policy-title"}
+        className="relative flex h-[min(420px,calc(100dvh-116px))] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+      >
+        <header className="flex flex-shrink-0 items-start justify-between gap-4 bg-[#1B4332] px-4 py-4 sm:px-6 sm:py-5">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#C5D82D]">Money Venture Research</p>
+            <h2 id={policy + "-policy-title"} className="mt-1 text-lg font-bold text-white sm:text-xl">{content.title}</h2>
+            <p className="mt-1 text-xs text-white/65">{content.updated}</p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+        </header>
+
+        <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
+          <p className="mb-4 text-sm leading-relaxed text-gray-600">
+            Please read this policy carefully. It applies to your use of the Money Venture Research website and related services.
+          </p>
+          <div className="space-y-4">
+            {content.sections.map((section) => (
+              <div key={section.heading}>
+                <h3 className="text-sm font-bold text-[#1B4332] sm:text-base">{section.heading}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{section.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <footer className="flex flex-shrink-0 justify-end border-t border-gray-100 bg-white px-4 py-3 sm:px-6 sm:py-4">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-xl bg-[#1B4332] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#28553f]"
+          >
+            Close
+          </button>
+        </footer>
+      </section>
+    </div>
+  )
+}
+
 // ─── Desktop Newsletter ───────────────────────────────────────────────────────
 
 function DesktopNewsletter() {
@@ -98,6 +203,7 @@ function DesktopNewsletter() {
 
 export function Footer() {
   const [email, setEmail] = useState("")
+  const [policy, setPolicy] = useState<PolicyType | null>(null)
 
   return (
     <footer className="bg-gradient-to-b from-[#112820] to-[#1e4535]">
@@ -166,6 +272,7 @@ export function Footer() {
           {[
             { label: "Registered Name", value: "Money Venture Research" },
             { label: "Reg. No.",        value: "INH000026114" },
+            { label: "Enlistment No.",  value: "7067" },
             { label: "Type",            value: "Individual" },
             { label: "Principle Officer", value: "Rohit Kumar" },
             { label: "Compliance Officer", value: "Rohit Kumar" },
@@ -175,6 +282,18 @@ export function Footer() {
             <div key={label}>
               <span className="text-[#C5D82D] text-[9px] font-bold uppercase tracking-widest">{label}</span>
               <p className="text-white/60 text-xs mt-0.5">{value}</p>
+            </div>
+          ))}
+        </MobileAccordion>
+
+        <MobileAccordion title="Compliance & Grievance Officers">
+          {["Compliance Officer", "Grievance Officer"].map((role) => (
+            <div key={role} className="space-y-1.5">
+              <p className="text-[#C5D82D] text-[9px] font-bold uppercase tracking-widest">{role}</p>
+              <p className="text-white text-xs font-semibold">Rohit Kumar</p>
+              <p className="text-white/60 text-xs leading-relaxed">S-23 Sai City Mangliya, Dhabli Mangliya, Indore, Madhya Pradesh 453771</p>
+              <a href="tel:+919098668268" className="block text-white/60 text-xs hover:text-[#C5D82D] transition-colors">09098668268</a>
+              <a href="mailto:info@moneyventureresearch.com" className="block text-white/60 text-xs break-all hover:text-[#C5D82D] transition-colors">info@moneyventureresearch.com</a>
             </div>
           ))}
         </MobileAccordion>
@@ -201,6 +320,14 @@ export function Footer() {
 
       {/* Mobile bottom bar */}
       <div className="block md:hidden border-t border-white/10 px-5 py-4">
+        <div className="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-2">
+          <button type="button" onClick={() => setPolicy("terms")} className="text-[10px] font-semibold text-white/60 underline underline-offset-4 hover:text-[#C5D82D]">
+            Terms &amp; Conditions
+          </button>
+          <button type="button" onClick={() => setPolicy("privacy")} className="text-[10px] font-semibold text-white/60 underline underline-offset-4 hover:text-[#C5D82D]">
+            Privacy Policy
+          </button>
+        </div>
         <p className="text-white/35 text-[10px] text-center leading-relaxed">
           &copy; 2026 Money Venture Research &middot; SEBI RA INH000026114
         </p>
@@ -240,16 +367,18 @@ export function Footer() {
               <FH>Compliance Officer</FH>
               <div className="space-y-3">
                 <FR icon={<User size={12} />}><span className="text-white font-medium">Rohit Kumar</span></FR>
-                <FR icon={<Phone size={12} />}><a href="tel:+919098668268" className="hover:text-[#C5D82D] transition-colors">+91 90986 68268</a></FR>
+                <FR icon={<MapPin size={12} />}>S-23 Sai City Mangliya, Dhabli Mangliya, Indore, Madhya Pradesh 453771</FR>
+                <FR icon={<Phone size={12} />}><a href="tel:+919098668268" className="hover:text-[#C5D82D] transition-colors">09098668268</a></FR>
                 <FR icon={<Mail size={12} />}><a href="mailto:info@moneyventureresearch.com" className="hover:text-[#C5D82D] transition-colors break-all">info@moneyventureresearch.com</a></FR>
               </div>
             </div>
             <div>
-              <FH>{"Let's Talk"}</FH>
+              <FH>Grievance Officer</FH>
               <div className="space-y-3">
-                <FR icon={<Phone size={12} />}><a href="tel:+919098668268" className="hover:text-[#C5D82D] transition-colors">+91 90986 68268</a></FR>
+                <FR icon={<User size={12} />}><span className="text-white font-medium">Rohit Kumar</span></FR>
+                <FR icon={<MapPin size={12} />}>S-23 Sai City Mangliya, Dhabli Mangliya, Indore, Madhya Pradesh 453771</FR>
+                <FR icon={<Phone size={12} />}><a href="tel:+919098668268" className="hover:text-[#C5D82D] transition-colors">09098668268</a></FR>
                 <FR icon={<Mail size={12} />}><a href="mailto:info@moneyventureresearch.com" className="hover:text-[#C5D82D] transition-colors break-all">info@moneyventureresearch.com</a></FR>
-                <FR icon={<Clock size={12} />}>9:00 AM – 6:30 PM (Mon–Fri)</FR>
               </div>
             </div>
           </div>
@@ -293,6 +422,7 @@ export function Footer() {
                 { label: "Registered Name",   value: "Money Venture Research" },
                 { label: "Type",              value: "Individual" },
                 { label: "SEBI Reg. No.",     value: "INH000026114" },
+                { label: "Enlistment No.",    value: "7067" },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <p className="text-[#C5D82D] text-xs font-semibold">{label}</p>
@@ -326,9 +456,19 @@ export function Footer() {
       {/* ── Desktop Bottom bar ── */}
       <div className="border-t border-[#1e3d2e]/60">
         <div className="max-w-7xl mx-auto px-4 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-2">
-          <p className="text-white/50 text-sm">
-            &copy; 2026 Money Venture Research &middot; SEBI RA INH000026114
-          </p>
+          <div className="flex flex-col items-center gap-2 md:items-start">
+            <p className="text-white/50 text-sm">
+              &copy; 2026 Money Venture Research &middot; SEBI RA INH000026114
+            </p>
+            <div className="flex items-center gap-4">
+              <button type="button" onClick={() => setPolicy("terms")} className="text-xs text-white/55 underline underline-offset-4 transition-colors hover:text-[#C5D82D]">
+                Terms &amp; Conditions
+              </button>
+              <button type="button" onClick={() => setPolicy("privacy")} className="text-xs text-white/55 underline underline-offset-4 transition-colors hover:text-[#C5D82D]">
+                Privacy Policy
+              </button>
+            </div>
+          </div>
           <p className="text-white/40 text-sm text-center md:text-right max-w-md leading-relaxed">
             Investments are subject to market risks. Read all documents carefully before investing.
           </p>
@@ -336,6 +476,7 @@ export function Footer() {
       </div>
       </div>{/* end desktop block */}
 
+      {policy && <PolicyModal policy={policy} onClose={() => setPolicy(null)} />}
     </footer>
   )
 }

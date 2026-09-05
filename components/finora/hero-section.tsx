@@ -1,7 +1,6 @@
 "use client"
 
 import { ArrowUpRight, Zap, LineChart, Wheat, BellRing, ShieldCheck, BadgeCheck } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 import { FeaturesSection } from "./features-section"
 
@@ -17,16 +16,19 @@ export function HeroSection() {
         {/* Hero image block — fixed aspect, not full-viewport (prevents scroll jank) */}
         <div className="relative w-full" style={{ aspectRatio: "3 / 4", maxHeight: "78vh" }}>
 
-          {/* Background image */}
-          <Image
-            src="/images/hero-mobile.jpg"
-            alt="Professional finance advisor at Money Ventures Research"
-            fill
-            sizes="100vw"
-            className="object-cover object-[60%_top] pointer-events-none select-none"
-            priority
-            draggable={false}
-          />
+          {/* Background video */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/hero-mobile.jpg"
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-[60%_top] pointer-events-none select-none"
+          >
+            <source src="/videos/hero-background.mp4" type="video/mp4" />
+          </video>
 
           {/* Readability scrim — darker at bottom where text sits */}
           <div
@@ -226,14 +228,18 @@ export function HeroSection() {
 
 
         <div className="absolute inset-0 pointer-events-none select-none">
-          <Image
-            src="/images/hero-finance2.jpg"
-            alt="Finance professionals reviewing investment documents"
-            fill
-            className="object-cover object-center pointer-events-none select-none"
-            priority
-            draggable={false}
-          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/hero-finance2.jpg"
+            aria-hidden="true"
+            className="h-full w-full object-cover object-center pointer-events-none select-none"
+          >
+            <source src="/videos/hero-background.mp4" type="video/mp4" />
+          </video>
         </div>
         <div
           className="absolute left-0 top-0 w-[60%] h-full pointer-events-none"
