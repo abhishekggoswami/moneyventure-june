@@ -203,7 +203,6 @@ function DesktopNewsletter() {
 
 export function Footer() {
   const [email, setEmail] = useState("")
-  const [policy, setPolicy] = useState<PolicyType | null>(null)
 
   return (
     <footer className="bg-gradient-to-b from-[#112820] to-[#1e4535]">
@@ -321,12 +320,12 @@ export function Footer() {
       {/* Mobile bottom bar */}
       <div className="block md:hidden border-t border-white/10 px-5 py-4">
         <div className="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-2">
-          <button type="button" onClick={() => setPolicy("terms")} className="text-[10px] font-semibold text-white/60 underline underline-offset-4 hover:text-[#C5D82D]">
+          <Link href="/terms-and-conditions" className="text-[10px] font-semibold text-white/60 underline underline-offset-4 hover:text-[#C5D82D]">
             Terms &amp; Conditions
-          </button>
-          <button type="button" onClick={() => setPolicy("privacy")} className="text-[10px] font-semibold text-white/60 underline underline-offset-4 hover:text-[#C5D82D]">
+          </Link>
+          <Link href="/privacy-policy" className="text-[10px] font-semibold text-white/60 underline underline-offset-4 hover:text-[#C5D82D]">
             Privacy Policy
-          </button>
+          </Link>
         </div>
         <p className="text-white/35 text-[10px] text-center leading-relaxed">
           &copy; 2026 Money Venture Research &middot; SEBI RA INH000026114
@@ -461,12 +460,12 @@ export function Footer() {
               &copy; 2026 Money Venture Research &middot; SEBI RA INH000026114
             </p>
             <div className="flex items-center gap-4">
-              <button type="button" onClick={() => setPolicy("terms")} className="text-xs text-white/55 underline underline-offset-4 transition-colors hover:text-[#C5D82D]">
+              <Link href="/terms-and-conditions" className="text-xs text-white/55 underline underline-offset-4 transition-colors hover:text-[#C5D82D]">
                 Terms &amp; Conditions
-              </button>
-              <button type="button" onClick={() => setPolicy("privacy")} className="text-xs text-white/55 underline underline-offset-4 transition-colors hover:text-[#C5D82D]">
+              </Link>
+              <Link href="/privacy-policy" className="text-xs text-white/55 underline underline-offset-4 transition-colors hover:text-[#C5D82D]">
                 Privacy Policy
-              </button>
+              </Link>
             </div>
           </div>
           <p className="text-white/40 text-sm text-center md:text-right max-w-md leading-relaxed">
@@ -475,8 +474,6 @@ export function Footer() {
         </div>
       </div>
       </div>{/* end desktop block */}
-
-      {policy && <PolicyModal policy={policy} onClose={() => setPolicy(null)} />}
     </footer>
   )
 }

@@ -116,10 +116,11 @@ export function Navbar() {
 
   return (
     <nav
-      className="bg-white border-b border-gray-100 sticky top-0 z-40"
-      style={{ boxShadow: "0 1px 12px rgba(27,67,50,0.06)" }}
+      data-site-navbar
+      className="sticky top-0 z-40 border-b border-[#1B4332]/10 bg-white/85 backdrop-blur-xl lg:bg-white lg:backdrop-blur-none"
+      style={{ boxShadow: "0 6px 22px rgba(27,67,50,0.08)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex items-center justify-between">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 lg:px-8">
 
         {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0 group">
@@ -146,7 +147,7 @@ export function Navbar() {
             alt="Money Ventures Research"
             width={150}
             height={58}
-            className="object-contain logo-img h-11 w-auto lg:h-14"
+            className="logo-img h-9 w-auto object-contain lg:h-14"
             priority
           />
         </Link>
@@ -303,26 +304,60 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          aria-label="Toggle menu"
-          className="lg:hidden w-10 h-10 bg-[#1B4332] rounded-full flex items-center justify-center"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
-        </button>
+        {/* Mobile trust controls — shown once, directly in the header. */}
+        <div className="flex items-center gap-1.5 lg:hidden">
+          <div
+            className="flex min-w-[88px] flex-col rounded-xl px-2.5 py-1.5 leading-none"
+            style={{
+              background: "rgba(243,248,240,0.72)",
+              border: "1px solid rgba(27,67,50,0.16)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
+            }}
+          >
+            <span className="flex items-center gap-1 text-[8px] font-extrabold uppercase tracking-[0.08em] text-[#1B4332]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#C5D82D] ring-2 ring-[#C5D82D]/20" />
+              SEBI RA
+            </span>
+            <span className="mt-1 text-[9px] font-bold tracking-[0.03em] text-[#1B4332]/75">INH000026114</span>
+          </div>
+
+          <a
+            href="https://kyc.moneyventureresearch.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl px-3 py-2.5 text-[11px] font-extrabold tracking-wide text-[#1B4332] transition-colors hover:bg-[#1B4332] hover:text-white"
+            style={{
+              background: "rgba(197,216,45,0.7)",
+              border: "1px solid rgba(197,216,45,0.95)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.45), 0 3px 10px rgba(197,216,45,0.18)",
+            }}
+          >
+            E-KYC
+          </a>
+
+          <button
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1B4332] shadow-md transition-transform duration-200 hover:scale-105"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
       <div
         style={{
-          maxHeight: isMenuOpen ? "400px" : "0px",
+          maxHeight: isMenuOpen ? "calc(100vh - 56px)" : "0px",
+          minHeight: isMenuOpen ? "calc(100vh - 56px)" : "0px",
           overflow: "hidden",
           transition: "max-height 350ms cubic-bezier(0.4,0,0.2,1)",
         }}
-        className="lg:hidden bg-white border-t border-gray-100"
+        className="border-t border-white/60 bg-white/75 backdrop-blur-2xl lg:hidden"
       >
-        <div className="flex flex-col px-6 py-5 gap-4">
+        <div className="flex min-h-[calc(100vh-56px)] flex-col px-6 py-5">
+          <div className="flex flex-col">
           {NAV_LINKS.filter((l) => l.href !== "/payment").map((link) => {
             const active = link.section
               ? false
@@ -332,7 +367,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => handleMobileSection(link.section)}
-                className="flex items-center justify-between py-2 border-b border-gray-50"
+                className="flex items-center justify-between border-b border-[#1B4332]/10 py-2.5"
               >
                 <span style={{ color: active ? "#1B4332" : "#6b7280", fontWeight: active ? 700 : 500, fontSize: "15px" }}>
                   {link.label}
@@ -343,30 +378,33 @@ export function Navbar() {
               </Link>
             )
           })}
+          </div>
 
-          {/* Payment CTA row */}
-          <Link
-            href="/payment"
-            onClick={() => setIsMenuOpen(false)}
-            className="flex items-center justify-center gap-2 font-bold py-3 rounded-full text-sm transition-all duration-200"
-            style={{
-              background: pathname === "/payment" ? "#1B4332" : "#C5D82D",
-              color: pathname === "/payment" ? "#C5D82D" : "#1B4332",
-              boxShadow: "0 2px 12px rgba(197,216,45,0.3)",
-            }}
-          >
-            Pay Now
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
+          <div className="mt-auto flex flex-col gap-3 pt-8">
+            {/* Payment CTA row */}
+            <Link
+              href="/payment"
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold transition-all duration-200"
+              style={{
+                background: pathname === "/payment" ? "#1B4332" : "#C5D82D",
+                color: pathname === "/payment" ? "#C5D82D" : "#1B4332",
+                boxShadow: "0 5px 18px rgba(197,216,45,0.28)",
+              }}
+            >
+              Pay Now
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
 
-          <Link
-            href="/contact"
-            onClick={() => setIsMenuOpen(false)}
-            className="flex items-center justify-center gap-2 bg-[#1B4332] text-white font-bold py-3 rounded-full text-sm"
-          >
-            Get In Touch
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
+            <Link
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#1B4332] py-3.5 text-sm font-bold text-white shadow-lg"
+            >
+              Get In Touch
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

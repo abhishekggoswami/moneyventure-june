@@ -23,7 +23,6 @@ export function HeroSection() {
             loop
             playsInline
             preload="auto"
-            poster="/images/hero-mobile.jpg"
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover object-[60%_top] pointer-events-none select-none"
           >
@@ -234,7 +233,6 @@ export function HeroSection() {
             loop
             playsInline
             preload="auto"
-            poster="/images/hero-finance2.jpg"
             aria-hidden="true"
             className="h-full w-full object-cover object-center pointer-events-none select-none"
           >

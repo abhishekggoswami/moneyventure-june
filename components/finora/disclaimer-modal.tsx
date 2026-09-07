@@ -18,12 +18,30 @@ const DISCLAIMER_POINTS = [
 export function DisclaimerModal() {
   const [disclaimerOpen, setDisclaimerOpen] = useState(false)
   const [paymentDetailsOpen, setPaymentDetailsOpen] = useState(false)
+  const [paymentAlertTop, setPaymentAlertTop] = useState<number | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
     // Show the original full disclaimer once per session.
     if (!sessionStorage.getItem("mv_disclaimer_seen")) {
       setDisclaimerOpen(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    function updatePaymentAlertPosition() {
+      const navbar = document.querySelector<HTMLElement>("[data-site-navbar]")
+      const navbarBottom = navbar?.getBoundingClientRect().bottom ?? 72
+      setPaymentAlertTop(Math.round(Math.max(0, navbarBottom) + 40))
+    }
+
+    updatePaymentAlertPosition()
+    window.addEventListener("resize", updatePaymentAlertPosition)
+    window.addEventListener("scroll", updatePaymentAlertPosition, { passive: true })
+
+    return () => {
+      window.removeEventListener("resize", updatePaymentAlertPosition)
+      window.removeEventListener("scroll", updatePaymentAlertPosition)
     }
   }, [])
 
@@ -35,46 +53,86 @@ export function DisclaimerModal() {
   return (
     <>
       {pathname === "/" && (
-        <aside className="fixed right-3 top-32 z-30 w-[280px] max-w-[calc(100%-1.5rem)] sm:right-6 sm:w-[calc(100%-3rem)] sm:max-w-sm" aria-label="Payment safety alert">
-          <div className="overflow-hidden rounded-2xl bg-white shadow-xl" style={{ border: "1px solid rgba(197,216,45,0.8)" }}>
+        <>
+          {/* Phone: keep the alert available without covering the hero. */}
+          <aside className="fixed right-4 top-32 z-30 sm:hidden" aria-label="Payment safety alert">
             <button
               type="button"
               onClick={() => setPaymentDetailsOpen((open) => !open)}
               aria-expanded={paymentDetailsOpen}
-              aria-controls="payment-alert-details"
-              className="flex w-full items-center justify-between gap-2.5 bg-[#1B4332] px-3 py-2.5 text-left sm:gap-3 sm:px-4 sm:py-3.5"
+              aria-controls="payment-alert-details-mobile"
+              aria-label="Open payment safety notice"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1B4332] shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5D82D] focus-visible:ring-offset-2"
+              style={{ border: "1px solid rgba(197,216,45,0.9)" }}
             >
-              <span className="flex min-w-0 items-center gap-2 sm:gap-2.5">
-                <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#C5D82D] sm:h-8 sm:w-8">
-                  <AlertTriangle className="h-3.5 w-3.5 text-[#1B4332] sm:h-4 sm:w-4" aria-hidden="true" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#C5D82D] sm:text-[10px] sm:tracking-[0.16em]">Important</span>
-                  <span className="block text-[13px] font-bold leading-tight text-white sm:text-sm">Payment safety notice</span>
-                </span>
-              </span>
-              <ChevronDown
-                className="h-4 w-4 flex-shrink-0 text-[#C5D82D] transition-transform duration-200 sm:h-5 sm:w-5"
-                style={{ transform: paymentDetailsOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-                aria-hidden="true"
-              />
+              <AlertTriangle className="h-5 w-5 text-[#C5D82D]" aria-hidden="true" />
             </button>
 
             {paymentDetailsOpen && (
-              <div id="payment-alert-details" className="px-3 py-3 text-xs leading-relaxed text-[#1B4332] sm:px-4 sm:py-4 sm:text-sm">
+              <div id="payment-alert-details-mobile" className="absolute right-0 top-14 w-72 rounded-2xl bg-white p-4 text-sm leading-relaxed text-[#1B4332] shadow-xl" style={{ border: "1px solid rgba(197,216,45,0.8)" }}>
                 <div className="flex gap-2">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#1B4332] sm:h-5 sm:w-5" aria-hidden="true" />
-                  <p>
-                    All payments for Money Ventures services must be made only on the official Money Ventures Payments page. Do not use personal links, third-party accounts, or any other payment page.
-                  </p>
+                  <ShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#1B4332]" aria-hidden="true" />
+                  <p>All payments for Money Ventures services must be made only on the official Money Ventures Payments page. Do not use personal links, third-party accounts, or any other payment page.</p>
                 </div>
-                <Link href="/payment" className="mt-3 inline-flex rounded-lg bg-[#C5D82D] px-3 py-1.5 text-[11px] font-bold text-[#1B4332] transition-colors hover:bg-[#D6E94A] sm:mt-4 sm:px-3.5 sm:py-2 sm:text-xs">
+                <Link href="/payment" className="mt-4 inline-flex rounded-lg bg-[#C5D82D] px-3.5 py-2 text-xs font-bold text-[#1B4332] transition-colors hover:bg-[#D6E94A]">
                   Go to Payments Page
                 </Link>
               </div>
             )}
-          </div>
-        </aside>
+          </aside>
+
+          {/* Tablet and desktop: compact frosted-glass alert. */}
+          <aside
+            className="fixed right-5 z-30 hidden w-[290px] sm:block"
+            style={{ top: paymentAlertTop ?? 156 }}
+            aria-label="Payment safety alert"
+          >
+            <div
+              className="overflow-hidden rounded-xl"
+              style={{
+                background: "rgba(20, 60, 43, 0.76)",
+                border: "1px solid rgba(197,216,45,0.72)",
+                boxShadow: "0 12px 30px rgba(3, 20, 12, 0.25), inset 0 1px 0 rgba(255,255,255,0.12)",
+                backdropFilter: "blur(18px) saturate(135%)",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setPaymentDetailsOpen((open) => !open)}
+                aria-expanded={paymentDetailsOpen}
+                aria-controls="payment-alert-details-desktop"
+                className="flex w-full items-center justify-between gap-2.5 bg-white/[0.03] px-3 py-2.5 text-left transition-colors hover:bg-white/[0.08]"
+              >
+                <span className="flex min-w-0 items-center gap-2">
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#C5D82D] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
+                    <AlertTriangle className="h-3.5 w-3.5 text-[#1B4332]" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#C5D82D]">Important</span>
+                    <span className="block text-[12px] font-bold leading-tight text-white">Payment safety notice</span>
+                  </span>
+                </span>
+                <ChevronDown
+                  className="h-4 w-4 flex-shrink-0 text-[#C5D82D] transition-transform duration-200"
+                  style={{ transform: paymentDetailsOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                  aria-hidden="true"
+                />
+              </button>
+
+              {paymentDetailsOpen && (
+                <div id="payment-alert-details-desktop" className="border-t border-white/10 px-3 py-3 text-xs leading-relaxed text-white/90">
+                  <div className="flex gap-2">
+                    <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C5D82D]" aria-hidden="true" />
+                    <p>All payments for Money Ventures services must be made only on the official Money Ventures Payments page. Do not use personal links, third-party accounts, or any other payment page.</p>
+                  </div>
+                  <Link href="/payment" className="mt-3 inline-flex rounded-lg bg-[#C5D82D] px-3 py-1.5 text-[11px] font-bold text-[#1B4332] transition-colors hover:bg-[#D6E94A]">
+                    Go to Payments Page
+                  </Link>
+                </div>
+              )}
+            </div>
+          </aside>
+        </>
       )}
 
       {disclaimerOpen && (
