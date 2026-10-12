@@ -17,6 +17,7 @@ const DISCLAIMER_POINTS = [
 
 export function DisclaimerModal() {
   const [disclaimerOpen, setDisclaimerOpen] = useState(false)
+  const [disclaimerDetailsOpen, setDisclaimerDetailsOpen] = useState(false)
   const [paymentDetailsOpen, setPaymentDetailsOpen] = useState(false)
   const [paymentAlertTop, setPaymentAlertTop] = useState<number | null>(null)
   const pathname = usePathname()
@@ -145,12 +146,12 @@ export function DisclaimerModal() {
         >
       {/* Card */}
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl"
+        className="relative flex max-h-[90vh] w-full max-w-sm flex-col overflow-hidden rounded-3xl shadow-2xl sm:max-w-2xl"
         style={{ border: "2px solid #C5D82D" }}
       >
         {/* Dark green header — gradient lightens toward centre so logo is clearly visible */}
         <div
-          className="px-8 pt-8 pb-6 flex flex-col items-center gap-4 flex-shrink-0"
+          className="flex flex-shrink-0 flex-col items-center gap-3 px-5 py-5 sm:gap-4 sm:px-8 sm:pb-6 sm:pt-8"
           style={{
             background: "radial-gradient(ellipse at 50% 60%, #2d6e4e 0%, #1B4332 70%)",
           }}
@@ -160,10 +161,10 @@ export function DisclaimerModal() {
             alt="Money Ventures Research logo"
             width={180}
             height={60}
-            className="object-contain"
+            className="h-auto w-[130px] object-contain sm:w-[180px]"
           />
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest"
+            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-widest"
             style={{ background: "rgba(197,216,45,0.15)", border: "1px solid rgba(197,216,45,0.4)", color: "#C5D82D" }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#C5D82D]" />
@@ -172,18 +173,54 @@ export function DisclaimerModal() {
         </div>
 
         {/* Scrollable body */}
-        <div className="bg-white overflow-y-auto flex-1 px-8 py-6">
+        <div className="flex-1 overflow-y-auto bg-white px-5 py-4 sm:px-8 sm:py-6">
+
+          {/* Phone: show the key risks first; the complete policy remains available on demand. */}
+          <div className="sm:hidden">
+            <p className="text-sm leading-relaxed text-[#436257]">
+              Please read these important investment and account-safety notes before continuing.
+            </p>
+            <div className="mt-3 rounded-xl border border-[#1B4332]/10 bg-[#f1f7f2] p-3">
+              <p className="text-xs font-bold text-[#1B4332]">Market risk &amp; account safety</p>
+              <p className="mt-1 text-xs leading-relaxed text-[#527066]">
+                Investments are subject to market risks. We never guarantee returns, and you must never share your trading login, password or OTP.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setDisclaimerDetailsOpen((open) => !open)}
+              aria-expanded={disclaimerDetailsOpen}
+              className="mt-3 flex w-full items-center justify-between rounded-lg px-1 py-1.5 text-left text-xs font-bold text-[#1B4332]"
+            >
+              {disclaimerDetailsOpen ? "Hide full disclaimer" : "Read full disclaimer"}
+              <ChevronDown
+                className="h-4 w-4 text-[#68850b] transition-transform duration-200"
+                style={{ transform: disclaimerDetailsOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                aria-hidden="true"
+              />
+            </button>
+            {disclaimerDetailsOpen && (
+              <ol className="mt-2 space-y-2 border-t border-[#1B4332]/10 pt-3">
+                {DISCLAIMER_POINTS.map((point, i) => (
+                  <li key={i} className="flex gap-2 text-[11px] leading-relaxed text-[#4a655a]">
+                    <span className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-[#1B4332] text-[9px] font-bold text-white">{i + 1}</span>
+                    {point}
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
 
           {/* Disclaimer heading */}
           <div
-            className="inline-block px-3 py-1.5 rounded-md text-sm font-bold text-white mb-4"
+            className="mb-4 hidden rounded-md px-3 py-1.5 text-sm font-bold text-white sm:inline-block"
             style={{ background: "#1B4332" }}
           >
             Disclaimer:
           </div>
 
           {/* Points */}
-          <ol className="space-y-3 mb-6">
+          <ol className="hidden sm:mb-6 sm:block sm:space-y-3">
             {DISCLAIMER_POINTS.map((point, i) => (
               <li key={i} className="flex gap-3 text-sm text-gray-700 leading-relaxed">
                 <span
@@ -199,7 +236,7 @@ export function DisclaimerModal() {
 
           {/* Contact + SEBI block */}
           <div
-            className="rounded-2xl p-5 space-y-2"
+            className="hidden space-y-2 rounded-2xl p-5 sm:block"
             style={{ background: "#F0F7F3", border: "1px solid rgba(27,67,50,0.12)" }}
           >
             <p className="text-xs font-bold text-[#1B4332] uppercase tracking-widest">
@@ -222,10 +259,10 @@ export function DisclaimerModal() {
         </div>
 
         {/* Footer — only "Yes, I Agree" to prevent bypassing */}
-        <div className="bg-white border-t border-gray-100 px-8 py-5 flex items-center justify-center flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center justify-center border-t border-gray-100 bg-white px-5 py-3.5 sm:px-8 sm:py-5">
           <button
             onClick={acceptDisclaimer}
-            className="px-10 py-3 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
+            className="rounded-xl px-8 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0 sm:px-10 sm:py-3"
             style={{ background: "#1B4332" }}
           >
             Yes, I Agree

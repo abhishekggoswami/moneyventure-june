@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Check, ArrowUpRight, Zap, TrendingUp, BarChart3, Crown, Sparkles } from "lucide-react"
+import { AnimatedUnderline } from "./animated-underline"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -791,7 +792,7 @@ export function ServicesV2() {
             Our Services
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-[44px] font-serif font-bold text-[#1B4332] leading-tight mb-4">
-            Research Programs Built for<br className="hidden md:block" /> Serious Traders
+            Research Programs Built for<br className="hidden md:block" /> <AnimatedUnderline>Serious Traders</AnimatedUnderline>
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto text-base leading-relaxed">
             Select a program below to explore what&apos;s included and choose the

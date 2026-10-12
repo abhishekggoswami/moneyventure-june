@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Plus, Minus, ArrowUpRight } from "lucide-react"
+import { AnimatedUnderline } from "./animated-underline"
 
 interface FAQItem {
   question: string
@@ -111,7 +112,7 @@ export function FAQSection() {
             FAQ
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-[44px] font-serif font-bold text-[#1B4332] leading-tight">
-            Your Most Important Questions<br className="hidden md:block" /> Answered Here
+            Your Most Important Questions<br className="hidden md:block" /> <AnimatedUnderline>Answered Here</AnimatedUnderline>
           </h2>
         </div>
 

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
+import { AnimatedUnderline } from "./animated-underline"
 
 // ─── Scroll-triggered reveal hook ────────────────────────────────────────────
 function useInView(threshold = 0.15) {
@@ -1375,7 +1376,7 @@ export function PricingContent() {
           {/* Section intro */}
           <div style={{ textAlign: "center", marginBottom: "52px" }}>
             <h2 style={{ color: "#1B4332", fontSize: "28px", fontWeight: 800, fontFamily: "serif", margin: "0 0 8px" }}>
-              Choose Your Program
+              <AnimatedUnderline>Choose Your Program</AnimatedUnderline>
             </h2>
             <p style={{ color: "#6b7280", fontSize: "15px", margin: 0 }}>
               Three research programs — each available on Monthly, Quarterly, and Yearly plans. No hidden charges.
