@@ -54,7 +54,7 @@ export function ComplaintBoard() {
             </div>
             <div className="text-right">
               <p className="text-white/60 text-xs">Data for the month ending:</p>
-              <p className="text-white font-semibold text-sm">31st September, 2026</p>
+              <p className="text-white font-semibold text-sm">31st October, 2026</p>
             </div>
           </div>
 
@@ -201,7 +201,7 @@ export function ComplaintBoard() {
         <div className="mt-4 rounded-xl border border-[#1B4332]/15 overflow-hidden">
           <div className="flex items-center gap-3 px-5 py-3 bg-[#1B4332]">
             <span className="text-white font-semibold text-sm">Trend of Monthly Complaint Disposal</span>
-            <span className="text-[#C5D82D] text-xs font-medium">(Oct-25 – Sep-26)</span>
+            <span className="text-[#C5D82D] text-xs font-medium">(Nov-25 – Oct-26)</span>
           </div>
 
           <div className="overflow-x-auto">
@@ -242,7 +242,6 @@ export function ComplaintBoard() {
 }
 
 const TREND_ROWS = [
-  { month: "Oct-25", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
   { month: "Nov-25", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
   { month: "Dec-25", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
   { month: "Jan-26", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
@@ -254,6 +253,7 @@ const TREND_ROWS = [
   { month: "Jul-26", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
   { month: "Aug-26", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
   { month: "Sep-26", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
+  { month: "Oct-26", carriedForward: 0, received: 0, resolved: 0, pending: 0 },
 ]
 
 function DataCell({ value, bold = false }: { value: number; bold?: boolean }) {

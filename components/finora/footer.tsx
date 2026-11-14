@@ -17,6 +17,7 @@ const importantLinks = [
   { label: "Annexure B – Complaints", href: "https://docs.google.com/spreadsheets/d/14Y2yEH0b2TKxCj0JiGmHJajGv-p-TmfP/edit?usp=drive_link&ouid=107049434454860825227&rtpof=true&sd=true" },
   { label: "Investor Charter",        href: "https://docs.google.com/document/d/1oUlvGD9IzJgN0jgXxF2kW6zs35z6dH57/edit?usp=drive_link&ouid=107049434454860825227&rtpof=true&sd=true" },
   { label: "PMLA Policy",             href: "https://docs.google.com/document/d/11W8T9xM-7MK98CgHyF8-3GjSZ7Sd5iaa/edit?usp=drive_link&ouid=107049434454860825227&rtpof=true&sd=true" },
+  { label: "GST Registration Certificate", href: "https://drive.google.com/file/d/1cTJsEm33_Hw_VMIX-N1ho2M2MsnOwmhT/view?usp=sharing" },
 ]
 
 type PolicyType = "terms" | "privacy"
