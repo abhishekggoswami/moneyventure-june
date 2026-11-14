@@ -272,6 +272,7 @@ export function Footer() {
           {[
             { label: "Registered Name", value: "Money Venture Research" },
             { label: "Reg. No.",        value: "INH000026114" },
+            { label: "GSTIN",           value: "23DQQPK7168Q1ZT" },
             { label: "Enlistment No.",  value: "7067" },
             { label: "Type",            value: "Individual" },
             { label: "Principle Officer", value: "Rohit Kumar" },
@@ -422,6 +423,7 @@ export function Footer() {
                 { label: "Registered Name",   value: "Money Venture Research" },
                 { label: "Type",              value: "Individual" },
                 { label: "SEBI Reg. No.",     value: "INH000026114" },
+                { label: "GSTIN",             value: "23DQQPK7168Q1ZT" },
                 { label: "Enlistment No.",    value: "7067" },
               ].map(({ label, value }) => (
                 <div key={label}>
