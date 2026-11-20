@@ -183,6 +183,7 @@ export function RegistrationModal() {
                 <span style={{ fontSize: '28px', fontWeight: 800, color: '#1B4332' }}>₹5,000</span>
                 <span style={{ fontSize: '11px', color: '#6b7280' }}>only</span>
               </div>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: '#6b7280', marginTop: '4px' }}>+ 18% GST</div>
             </div>
 
             {/* Benefits */}
@@ -281,7 +282,7 @@ export function RegistrationModal() {
                   ;(e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 12px rgba(197, 216, 45, 0.25)'
                 }}
               >
-                Pay ₹5,000 & Get Started
+                Pay ₹5,000 + 18% GST & Get Started
               </button>
               <button
                 onClick={handleClose}

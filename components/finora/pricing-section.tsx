@@ -284,6 +284,9 @@ function TierCard({
               {suffix}
             </span>
           </div>
+          <p style={{ color: isPopular ? "rgba(255,255,255,0.65)" : "#6b7280", fontSize: "12px", fontWeight: 600, margin: "5px 0 0" }}>
+            + 18% GST
+          </p>
         </div>
 
         {/* Divider */}

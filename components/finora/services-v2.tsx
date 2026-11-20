@@ -363,6 +363,9 @@ function BundleCard() {
                 &#8377;{total.toLocaleString("en-IN")}
               </span>
             </div>
+            <p className="text-white/60 text-xs font-semibold mt-1">
+              + 18% GST
+            </p>
             <p className="text-white/40 text-xs">
               billed {opt.label.toLowerCase()}
             </p>
@@ -537,6 +540,9 @@ function PricingCard({
               {periodLabel}
             </span>
           </div>
+          <p className={`text-xs font-semibold mt-1 ${tier.highlighted ? "text-white/70" : "text-gray-500"}`}>
+            + 18% GST
+          </p>
         </div>
 
         {/* Features */}
@@ -954,6 +960,9 @@ export function ServicesV2() {
                                 <span className={`text-sm ml-1 ${isHighlighted ? "text-white/60" : "text-gray-400"}`}>
                                   /{periodLabel.toLowerCase().replace("-", " ")}
                                 </span>
+                                <p className={`text-xs font-semibold mt-1 ${isHighlighted ? "text-white/70" : "text-gray-500"}`}>
+                                  + 18% GST
+                                </p>
                               </div>
                               
                               {/* Features summary */}
@@ -1052,6 +1061,9 @@ export function ServicesV2() {
                               <span className={`text-sm ml-1 ${isHighlighted ? "text-white/60" : "text-gray-400"}`}>
                                 /{periodLabel.toLowerCase().replace("-", " ")}
                               </span>
+                              <p className={`text-xs font-semibold mt-1 ${isHighlighted ? "text-white/70" : "text-gray-500"}`}>
+                                + 18% GST
+                              </p>
                             </div>
 
                             {/* Features summary */}

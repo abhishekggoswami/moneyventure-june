@@ -532,6 +532,9 @@ function AllInOneCard() {
                   &#8377;{total.toLocaleString("en-IN")}
                 </span>
               </div>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", fontWeight: 600, margin: "6px 0 0" }}>
+                + 18% GST
+              </p>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", marginTop: "6px" }}>
                 billed {opt.label.toLowerCase()}
               </p>

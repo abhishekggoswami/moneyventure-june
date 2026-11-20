@@ -27,7 +27,7 @@ const PLANS = [
   "Options — Half-Yearly",
   "All in One Wealth Package — Quarterly",
   "All in One Wealth Package — Half-Yearly",
-  "Registration Fee — ₹5,000",
+  "Registration Fee — ₹5,000 + 18% GST",
 ]
 
 export function PaymentContent() {

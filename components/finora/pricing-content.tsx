@@ -468,6 +468,9 @@ function TierCard({
               /{periodLabel}
             </span>
           </div>
+          <p style={{ color: "#6b7280", fontSize: "12px", fontWeight: 600, margin: "0 0 5px" }}>
+            + 18% GST
+          </p>
           <p style={{ color: "#6b7280", fontSize: "13px", fontWeight: 600, margin: "0 0 20px" }}>
             {tier.tagline}
           </p>
@@ -629,6 +632,9 @@ function PeriodCard({
               paddingBottom: "4px" 
             }}>/{periodLabel}</span>
           </div>
+          <p style={{ color: isHighlighted ? "rgba(255,255,255,0.7)" : "#6b7280", fontSize: "12px", fontWeight: 600, margin: "5px 0 0" }}>
+            + 18% GST
+          </p>
         </div>
 
         {/* Divider */}
@@ -976,6 +982,9 @@ function BundlePricingBlock() {
                 &#8377;{total.toLocaleString("en-IN")}
               </span>
             </div>
+            <p style={{ color: "#6b7280", fontSize: "12px", fontWeight: 600, margin: "7px 0 0" }}>
+              + 18% GST
+            </p>
             <p style={{ color: "#6b7280", fontSize: "13px", marginTop: "8px" }}>
               billed {opt.label.toLowerCase()}
             </p>
